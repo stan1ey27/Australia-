@@ -53,5 +53,17 @@ const PHOTO_CREDITS = {
     "author": "File:2007-08-04 Manly, New South Wales.jpg: Maksym Kozlenko derivative work: Geo",
     "license": "CC BY-SA 4.0",
     "url": "https://commons.wikimedia.org/wiki/File:2007-08-04_Manly,_New_South_Wales_b_(cropped).jpg"
+  },
+  "blue-mountains": {
+    "file": "Three_Sisters_from_echo_point.jpg",
+    "author": "MrActiniuM",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Three_Sisters_from_echo_point.jpg"
+  },
+  "parliament-house": {
+    "file": "Parliament_House_at_dusk,_Canberra_ACT.jpg",
+    "author": "Thennicke",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Parliament_House_at_dusk,_Canberra_ACT.jpg"
   }
 };
