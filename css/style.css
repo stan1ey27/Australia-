@@ -1,0 +1,251 @@
+/* ========== 色彩與基礎 ========== */
+:root {
+  --blue: #0B5394;
+  --blue-dark: #083b6b;
+  --ochre: #C8553D;
+  --ochre-dark: #a5402b;
+  --bg: #f6f4f0;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7682;
+  --line: #e4e0d8;
+  --shadow: 0 2px 10px rgba(20, 30, 40, .08);
+  --shadow-hover: 0 10px 28px rgba(20, 30, 40, .16);
+  --radius: 14px;
+  --header-h: 60px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--blue); }
+h1, h2, h3 { line-height: 1.3; margin: 0 0 .5em; }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+.container.narrow { max-width: 860px; }
+.muted { color: var(--muted); font-size: .92rem; }
+.empty { text-align: center; color: var(--muted); padding: 60px 0; font-size: 1.1rem; }
+
+/* ========== 導覽列 ========== */
+.site-header {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--blue); color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); gap: 12px; }
+.brand { color: #fff; text-decoration: none; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.brand-icon { font-size: 1.4rem; }
+.brand-sub { font-weight: 400; opacity: .85; }
+.nav { display: flex; align-items: center; gap: 4px; }
+.nav a { color: rgba(255,255,255,.85); text-decoration: none; padding: 6px 12px; border-radius: 999px; font-weight: 500; }
+.nav a:hover { color: #fff; background: rgba(255,255,255,.12); }
+.nav a.active { background: #fff; color: var(--blue); }
+
+/* 行程模式開關 */
+.trip-toggle { display: flex; align-items: center; gap: 6px; margin-left: 8px; cursor: pointer; font-size: .9rem; user-select: none; }
+.trip-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+.switch { width: 38px; height: 22px; border-radius: 999px; background: rgba(255,255,255,.3); position: relative; transition: background .2s; flex-shrink: 0; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.trip-toggle input:checked + .switch { background: var(--ochre); }
+.trip-toggle input:checked + .switch::after { transform: translateX(16px); }
+.trip-toggle input:focus-visible + .switch { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* ========== 首頁 Hero ========== */
+.hero {
+  background:
+    linear-gradient(135deg, rgba(11,83,148,.92), rgba(200,85,61,.85)),
+    radial-gradient(circle at 80% 20%, #ffd28a, transparent 60%);
+  color: #fff; padding: 56px 0 64px; text-align: center;
+}
+.hero h1 { font-size: clamp(1.7rem, 4.5vw, 2.6rem); }
+.hero p { opacity: .92; margin: 0 0 22px; }
+
+/* ========== 按鈕與標籤 ========== */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--blue); color: #fff; text-decoration: none; border: 0;
+  padding: 10px 18px; border-radius: 999px; font-weight: 500; font-size: .95rem; cursor: pointer;
+  transition: background .15s, transform .15s;
+}
+.btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.btn-light { background: #fff; color: var(--blue); }
+.btn-light:hover { background: #fdf1ea; }
+.btn-outline { background: transparent; color: var(--blue); box-shadow: inset 0 0 0 2px var(--blue); }
+.btn-outline:hover { background: var(--blue); color: #fff; }
+.btn-small { padding: 6px 12px; font-size: .85rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid var(--line); background: #fff; color: var(--text);
+  padding: 7px 16px; border-radius: 999px; cursor: pointer; font: inherit; font-size: .95rem;
+  display: inline-flex; align-items: center; gap: 6px; transition: all .15s;
+}
+.chip:hover { border-color: var(--blue); color: var(--blue); }
+.chip.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+.chips.small .chip { padding: 4px 12px; font-size: .85rem; }
+
+.tag { display: inline-block; background: #f0ede7; color: #4a5560; padding: 2px 10px; border-radius: 999px; font-size: .8rem; white-space: nowrap; }
+.tag-sydney { background: #e3eefa; color: var(--blue); }
+.tag-canberra { background: #fbe9e4; color: var(--ochre-dark); }
+.tag-day { background: var(--ochre); color: #fff; }
+
+/* ========== 篩選列 ========== */
+.filters { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin: -32px 0 24px; position: relative; }
+.filter-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.filter-row + .filter-row { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.search { flex: 1 1 220px; max-width: 320px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; font: inherit; background: var(--bg); }
+.search:focus { outline: none; border-color: var(--blue); background: #fff; }
+.count { margin: 10px 0 0; color: var(--muted); font-size: .85rem; }
+
+/* ========== 卡片 ========== */
+.day-group { margin-bottom: 36px; }
+.day-title { font-size: 1.2rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.day-num { background: var(--ochre); color: #fff; padding: 2px 12px; border-radius: 8px; font-size: .95rem; }
+.day-num.city-sydney { background: var(--blue); }
+.day-num.city-canberra { background: var(--ochre); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--card); border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); color: inherit; text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.card-body { padding: 14px 16px 18px; display: flex; flex-direction: column; flex: 1; }
+.card h3 { font-size: 1.1rem; margin: 0; }
+.card .en { margin: 0 0 6px; color: var(--muted); font-size: .8rem; }
+.card .summary { margin: 0 0 12px; font-size: .9rem; color: #3d4852; flex: 1; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.status-badge, .day-badge {
+  position: absolute; top: 10px; padding: 3px 10px; border-radius: 999px;
+  font-size: .78rem; font-weight: 700; background: rgba(255,255,255,.95); box-shadow: 0 1px 4px rgba(0,0,0,.2);
+}
+.status-badge { right: 10px; }
+.status-visited { color: #2e7d32; }
+.status-want { color: #b26a00; }
+.day-badge { left: 10px; background: var(--ochre); color: #fff; }
+
+/* 照片（未載入時顯示漸層＋圖示） */
+.photo {
+  aspect-ratio: 16 / 10; background-size: cover; background-position: center;
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.photo.city-sydney, .detail-hero.city-sydney { background-color: #4f86b8; background-image: linear-gradient(135deg, #0B5394, #5ea3d6); }
+.photo.city-canberra, .detail-hero.city-canberra { background-color: #c06c50; background-image: linear-gradient(135deg, #C8553D, #e9a25f); }
+.photo-icon { font-size: 2.6rem; opacity: .9; transition: opacity .3s; }
+.photo.has-photo .photo-icon { opacity: 0; }
+
+/* ========== 資訊區塊 ========== */
+.info-box { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 24px; margin: 8px 0 40px; }
+.info-box h2 { font-size: 1.15rem; }
+.transport-list { list-style: none; padding: 0; margin: 0; }
+.transport-list li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.transport-list li:last-child { border-bottom: 0; }
+.transport-list li > span { flex-shrink: 0; width: 1.6em; text-align: center; font-size: 1.15rem; }
+
+/* ========== 詳細頁 ========== */
+.detail-hero { position: relative; min-height: 340px; display: flex; align-items: flex-end; background-size: cover; background-position: center; color: #fff; }
+.detail-hero-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,.1) 60%, rgba(0,0,0,.25)); }
+.detail-hero-text { position: relative; width: 100%; padding-top: 24px; padding-bottom: 28px; }
+.detail-hero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 10px 0 2px; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.detail-hero .en { margin: 0; opacity: .9; }
+.back { color: #fff; text-decoration: none; display: inline-block; margin-bottom: 70px; background: rgba(0,0,0,.3); padding: 4px 12px; border-radius: 999px; font-size: .9rem; }
+.back:hover { background: rgba(0,0,0,.5); }
+
+.detail-body { padding-top: 20px; padding-bottom: 40px; }
+.status-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.facts > div { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; }
+.facts span { display: block; color: var(--muted); font-size: .82rem; margin-bottom: 2px; }
+.facts strong { font-weight: 500; font-size: .95rem; }
+.block { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 24px; margin-bottom: 20px; }
+.block h2 { font-size: 1.25rem; padding-left: 12px; border-left: 4px solid var(--ochre); }
+.block h3 { font-size: 1.02rem; margin-top: 18px; }
+.lead { font-size: 1.05rem; font-weight: 500; color: var(--blue-dark); }
+.highlights { padding-left: 1.2em; margin: 0; }
+.highlights li::marker { color: var(--ochre); }
+.tip { background: #fff7e6; border: 1px solid #f5d9a3; border-radius: 10px; padding: 12px 14px; margin: 16px 0; font-size: .95rem; }
+
+.mini-map { height: 300px; border-radius: 10px; margin-bottom: 16px; z-index: 0; }
+.nearby { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.nearby-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); transition: box-shadow .2s, transform .2s; }
+.nearby-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.nearby-card > div:last-child { padding: 8px 12px 10px; }
+.nearby-card strong { display: block; font-size: .95rem; line-height: 1.4; }
+.nearby-card small { color: var(--muted); }
+.nearby-photo { aspect-ratio: 16 / 9; }
+.nearby-photo .photo-icon { font-size: 1.8rem; }
+
+/* ========== 地圖頁 ========== */
+.map-page { height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+.map-toolbar { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; padding: 10px 16px; background: #fff; border-bottom: 1px solid var(--line); z-index: 500; }
+.map-layout { flex: 1; display: flex; min-height: 0; }
+.map-sidebar { width: 320px; flex-shrink: 0; overflow-y: auto; background: #fff; border-right: 1px solid var(--line); padding: 8px 0 20px; }
+#map { flex: 1; min-height: 0; z-index: 0; background: #dfe8ef; }
+
+.side-title { font-size: .92rem; margin: 14px 16px 6px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.side-list { list-style: none; margin: 0; padding: 0; }
+.side-item { width: 100%; display: flex; align-items: center; gap: 12px; padding: 9px 16px; background: none; border: 0; text-align: left; font: inherit; cursor: pointer; color: inherit; }
+.side-item:hover { background: var(--bg); }
+.side-item.active { background: #e3eefa; }
+.side-num { flex-shrink: 0; min-width: 30px; height: 30px; padding: 0 6px; border-radius: 15px; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; }
+.side-text { flex: 1; min-width: 0; }
+.side-text strong { display: block; font-weight: 500; font-size: .95rem; line-height: 1.35; }
+.side-text small { color: var(--muted); font-size: .8rem; }
+.side-hint { color: var(--muted); font-size: .8rem; padding: 12px 16px 0; margin: 0; }
+.day-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* 地圖標記 */
+.pin {
+  width: 34px; height: 34px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+.pin span { transform: rotate(45deg); font-size: 15px; line-height: 1; color: #fff; font-weight: 700; }
+.pin-sydney { background: var(--blue); }
+.pin-canberra { background: var(--ochre); }
+.pin-day span { font-size: 11px; }
+.pin-visited { opacity: .55; }
+.pin-main { width: 40px; height: 40px; background: var(--ochre); }
+.pin-main span { font-size: 18px; }
+.pin-small { width: 30px; height: 30px; }
+.pin-small span { font-size: 13px; }
+
+.leaflet-popup-content { margin: 12px 14px; font-family: inherit; }
+.leaflet-popup-content-wrapper { border-radius: 12px; }
+.popup strong { font-size: 1rem; }
+.popup .en { color: var(--muted); font-size: .78rem; }
+.popup p { margin: 6px 0; font-size: .86rem; line-height: 1.5; }
+.popup-meta { color: var(--muted); font-size: .8rem; margin-bottom: 8px; }
+.popup .btn { color: #fff; }
+.popup-photo { margin: -12px -14px 10px; border-radius: 12px 12px 0 0; aspect-ratio: 16 / 9; }
+.popup-photo .photo-icon { font-size: 2rem; }
+
+/* ========== 頁尾 ========== */
+.site-footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 24px 0 36px; border-top: 1px solid var(--line); }
+
+/* ========== 手機版 ========== */
+@media (max-width: 800px) {
+  .map-page { height: auto; overflow: visible; }
+  .map-layout { flex-direction: column-reverse; }
+  #map { height: 62vh; flex: none; }
+  .map-sidebar { width: 100%; border-right: 0; }
+  .facts { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .brand-sub { display: none; }
+  .trip-toggle { margin-left: 2px; font-size: .8rem; }
+  .brand { font-size: .95rem; }
+  .nav a { padding: 6px 10px; }
+  .search { max-width: none; }
+  .block { padding: 18px 16px; }
+  .back { margin-bottom: 40px; }
+}

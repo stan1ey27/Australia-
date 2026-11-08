@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>雪梨・坎培拉 景點</title>
+  <meta name="description" content="雪梨與坎培拉推薦景點、交通資訊與行程地圖">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦘</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <section class="hero">
+    <div class="container">
+      <h1>雪梨・坎培拉 景點指南</h1>
+      <p>從歌劇院到國會大廈，20 個必去景點，附交通資訊與附近景點</p>
+      <a class="btn btn-light" href="map.html">🗺️ 打開景點地圖</a>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="filters">
+      <div class="filter-row">
+        <div class="chips" id="cityChips"></div>
+        <input type="search" id="search" class="search" placeholder="🔍 搜尋景點…">
+      </div>
+      <div class="filter-row">
+        <div class="chips small" id="catChips"></div>
+        <div class="chips small" id="statusChips"></div>
+      </div>
+      <p class="count" id="count"></p>
+    </div>
+
+    <div id="grid"></div>
+
+    <section class="info-box">
+      <h2>🚌 雪梨 ↔ 坎培拉 怎麼去？</h2>
+      <ul class="transport-list" id="intercity"></ul>
+      <p class="muted">雪梨市區的火車、公車、渡輪、輕軌都可以用 Opal 卡或信用卡感應付款；坎培拉的公車和輕軌可以用 MyWay+ 或信用卡感應付款。</p>
+    </section>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/cards.js"></script>
+</body>
+</html>
