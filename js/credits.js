@@ -47,5 +47,11 @@ const PHOTO_CREDITS = {
     "author": "Nick Ang",
     "license": "CC BY-SA 4.0",
     "url": "https://commons.wikimedia.org/wiki/File:Bondi_from_above.jpg"
+  },
+  "manly": {
+    "file": "2007-08-04_Manly,_New_South_Wales_b_(cropped).jpg",
+    "author": "File:2007-08-04 Manly, New South Wales.jpg: Maksym Kozlenko derivative work: Geo",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:2007-08-04_Manly,_New_South_Wales_b_(cropped).jpg"
   }
 };
