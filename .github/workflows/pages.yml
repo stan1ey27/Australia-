@@ -23,6 +23,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: 下載缺少的景點照片
+        continue-on-error: true
+        timeout-minutes: 20
+        run: python3 scripts/fetch_images.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

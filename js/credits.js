@@ -1,4 +1,4 @@
-/* 照片來源（Wikimedia Commons） */
+/* 照片來源（Wikimedia Commons），由 scripts/fetch_images.py 產生 */
 const PHOTO_CREDITS = {
   "opera-house": {
     "file": "Sydney_Opera_House_2026.jpg",
@@ -41,5 +41,11 @@ const PHOTO_CREDITS = {
     "author": "Maksym Kozlenko",
     "license": "CC BY-SA 4.0",
     "url": "https://commons.wikimedia.org/wiki/File:2019-04-10_Sydney_CBD_view_from_Pyrmont_at_sunset.jpg"
+  },
+  "bondi-beach": {
+    "file": "Bondi_from_above.jpg",
+    "author": "Nick Ang",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Bondi_from_above.jpg"
   }
 };

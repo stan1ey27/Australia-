@@ -31,3 +31,7 @@ python3 -m http.server 8000
 1. 到 repo 的 **Settings → Pages**，**Source** 選擇 **GitHub Actions**
 2. 合併到 `main` 之後，`.github/workflows/pages.yml` 會自動部署
 3. 網址：`https://stan1ey27.github.io/Australia-/`
+
+## 景點照片
+照片放在 `images/<景點id>.jpg`，來自 Wikimedia Commons（自由授權），作者與授權顯示在各景點頁。
+新增景點後執行 `python3 scripts/fetch_images.py` 就會自動下載缺少的照片；部署時 GitHub Actions 也會自動補抓。
