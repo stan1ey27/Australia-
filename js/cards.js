@@ -19,7 +19,7 @@ function cardHtml(a) {
         <p class="summary">${a.summary}</p>
         <div class="meta">
           <span class="tag tag-${a.city}">📍 ${CITIES[a.city].name}</span>
-          <span class="tag">${CATEGORY_ICONS[a.category]} ${CATEGORIES[a.category]}</span>
+          <span class="tag cat-${a.category}">${CATEGORY_ICONS[a.category]} ${CATEGORIES[a.category]}</span>
           <span class="tag">⏱ ${a.duration}</span>
         </div>
       </div>
@@ -58,7 +58,7 @@ function render() {
       const items = list.filter(a => a.city === city);
       if (!items.length) continue;
       html += `<section class="day-group">
-        <h2 class="day-title"><span class="day-num city-${city}">${CITIES[city].name}</span>${CITIES[city].en}・${items.length} 個景點</h2>
+        <h2 class="day-title"><span class="day-num city-${city}">${city === "sydney" ? "🌊" : "🏛️"} ${CITIES[city].name}</span><small>${CITIES[city].en}・${items.length} 個景點</small></h2>
         <div class="grid">${items.map(cardHtml).join("")}</div></section>`;
     }
   }
@@ -88,6 +88,6 @@ document.getElementById("search").addEventListener("input", e => { state.query =
 document.addEventListener("tripmodechange", render);
 
 /* 雪梨 ↔ 坎培拉交通 */
-document.getElementById("intercity").innerHTML = INTERCITY.map(t => `<li><span>${MODE_ICONS[t.mode]}</span>${t.text}</li>`).join("");
+document.getElementById("intercity").innerHTML = transportItems(INTERCITY);
 
 render();

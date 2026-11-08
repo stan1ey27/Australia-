@@ -7,7 +7,7 @@ const focusA = focusId && getAttraction(focusId);
 let currentCity = (focusA && focusA.city) || (CITIES[params.get("city")] ? params.get("city") : "sydney");
 let currentDay = "all";
 
-const DAY_COLORS = ["#0B5394", "#C8553D", "#2E7D32", "#7B1FA2", "#EF6C00", "#00838F", "#AD1457", "#5D4037"];
+const DAY_COLORS = ["#4FA9E0", "#FF8C6B", "#3FBF8C", "#9B7BEA", "#F2A93B", "#2BB3C0", "#F06FA0", "#8C7A6B"];
 const dayColor = d => DAY_COLORS[(d - 1) % DAY_COLORS.length];
 
 const map = L.map("map", { zoomControl: true }).setView(CITIES[currentCity].center, CITIES[currentCity].zoom);
@@ -34,7 +34,7 @@ function iconFor(a) {
   return L.divIcon({
     className: "",
     html: `<div class="${cls}" style="${style}"><span>${label}</span></div>`,
-    iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -32],
+    iconSize: [34, 34], iconAnchor: [17, 43], popupAnchor: [0, -40],
   });
 }
 
@@ -87,7 +87,7 @@ function drawSidebar() {
   const item = (a, prefix) => {
     const st = getStatus(a.id);
     return `<li><button class="side-item" data-id="${a.id}">
-      <span class="side-num" ${prefix.color ? `style="background:${prefix.color}"` : ""}>${prefix.label}</span>
+      <span class="side-num city-${a.city}" ${prefix.color ? `style="background:${prefix.color}"` : ""}>${prefix.label}</span>
       <span class="side-text"><strong>${a.name}</strong><small>${CATEGORIES[a.category]}・${a.duration}</small></span>
       ${st !== "none" ? `<span class="side-status">${STATUS[st].icon}</span>` : ""}
     </button></li>`;

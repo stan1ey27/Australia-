@@ -60,38 +60,29 @@ function distanceLabel(km) {
   return `🚗 ${dist}・建議搭車`;
 }
 
-/* ---------- 照片：從維基百科自動抓取，失敗時顯示漸層底圖 ---------- */
-const imageCache = store.get("imgCache", {});
-async function fetchWikiImage(title) {
-  if (title in imageCache) return imageCache[title];
-  try {
-    const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
-    if (!res.ok) throw new Error(res.status);
-    const json = await res.json();
-    const src = (json.originalimage && json.originalimage.source) || (json.thumbnail && json.thumbnail.source) || null;
-    // 用縮圖服務取得適當大小的圖
-    const url = json.thumbnail ? json.thumbnail.source.replace(/\/\d+px-/, "/1200px-") : src;
-    imageCache[title] = url;
-    store.set("imgCache", imageCache);
-    return url;
-  } catch (e) {
-    return null;
-  }
-}
-/* 對頁面上所有 [data-wiki] 元素套用背景照片 */
+/* ---------- 照片：放在 images/<景點id>.jpg，沒有照片時顯示粉色底＋圖示 ---------- */
+function photoUrl(a) { return `images/${a.id}.jpg`; }
+/* 對頁面上所有 [data-photo] 元素套用背景照片 */
 function loadImages(root = document) {
-  root.querySelectorAll("[data-wiki]").forEach(async el => {
-    const url = await fetchWikiImage(el.dataset.wiki);
-    if (!url) return;
+  root.querySelectorAll("[data-photo]:not(.has-photo)").forEach(el => {
+    const url = el.dataset.photo;
     const img = new Image();
     img.onload = () => { el.style.backgroundImage = `url("${url}")`; el.classList.add("has-photo"); };
     img.src = url;
   });
 }
 function photoPlaceholder(a, extraClass = "") {
-  return `<div class="photo ${extraClass} city-${a.city}" data-wiki="${a.wiki}" role="img" aria-label="${a.name}">
+  return `<div class="photo ${extraClass} city-${a.city}" data-photo="${photoUrl(a)}" role="img" aria-label="${a.name}">
     <span class="photo-icon">${CATEGORY_ICONS[a.category] || "📍"}</span>
   </div>`;
+}
+function photoCredit(a) {
+  const c = typeof PHOTO_CREDITS !== "undefined" && PHOTO_CREDITS[a.id];
+  if (!c) return "";
+  return `📷 <a href="${c.url}" target="_blank" rel="noopener">${escapeHtml(c.author)}</a>・${escapeHtml(c.license)}・Wikimedia Commons`;
+}
+function transportItems(list) {
+  return list.map(t => `<li><span>${MODE_ICONS[t.mode] || "•"}</span><div>${t.text}</div></li>`).join("");
 }
 
 /* ---------- 導覽列 ---------- */
@@ -100,13 +91,13 @@ function renderHeader(active) {
   header.className = "site-header";
   header.innerHTML = `
     <div class="container header-inner">
-      <a class="brand" href="index.html"><span class="brand-icon">🦘</span>雪梨・坎培拉<span class="brand-sub">景點地圖</span></a>
+      <a class="brand" href="index.html"><span class="brand-icon">🦘</span><span class="brand-text">雪梨・坎培拉</span><span class="brand-sub">景點地圖</span></a>
       <nav class="nav">
         <a href="index.html" class="${active === "list" ? "active" : ""}">景點</a>
         <a href="map.html" class="${active === "map" ? "active" : ""}">地圖</a>
         <label class="trip-toggle" title="依照行程天數顯示景點與路線">
           <input type="checkbox" id="tripToggle" ${isTripMode() ? "checked" : ""}>
-          <span class="switch"></span><span class="trip-label">行程模式</span>
+          <span class="switch"></span><span class="trip-label"><span class="long">行程模式</span><span class="short">行程</span></span>
         </label>
       </nav>
     </div>`;
@@ -120,8 +111,9 @@ function renderHeader(active) {
 function renderFooter() {
   const f = document.createElement("footer");
   f.className = "site-footer";
-  f.innerHTML = `<div class="container">開放時間、票價、交通資訊僅供參考，請以各景點官網為準。<br>
-    地圖 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者・照片來自 Wikipedia／Wikimedia Commons</div>`;
+  f.innerHTML = `<div class="container"><div class="bye">🦘 G'day mate！祝旅途愉快 🐨</div>
+    開放時間、票價、交通資訊僅供參考，請以各景點官網為準。<br>
+    地圖 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者・照片來自 Wikimedia Commons（作者與授權見各景點頁）・字型 jf open 粉圓</div>`;
   document.body.append(f);
 }
 
