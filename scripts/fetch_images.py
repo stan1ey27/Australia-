@@ -39,9 +39,16 @@ def commons_file_for(wiki_title):
     s = json.loads(get("https://en.wikipedia.org/api/rest_v1/page/summary/" + urllib.parse.quote(wiki_title)))
     src = (s.get("originalimage") or s.get("thumbnail") or {}).get("source", "").split("?")[0]
     m = re.search(r"/wikipedia/(\w+)/(?:thumb/)?\w/\w\w/([^/]+)", src)
-    if not m or m.group(1) != "commons":
-        return None
-    return urllib.parse.unquote(m.group(2))
+    if m and m.group(1) == "commons":
+        return urllib.parse.unquote(m.group(2))
+    # 條目首圖不是 Commons 的自由授權圖時，改用 Wikidata 的代表圖片（P18）
+    qid = s.get("wikibase_item")
+    if qid:
+        wd = json.loads(get(f"https://www.wikidata.org/wiki/Special:EntityData/{qid}.json"))
+        claims = wd["entities"][qid].get("claims", {}).get("P18", [])
+        if claims:
+            return claims[0]["mainsnak"]["datavalue"]["value"]
+    return None
 
 
 def main():
@@ -56,7 +63,7 @@ def main():
         try:
             fname = OVERRIDES.get(id_) or commons_file_for(wiki)
             if not fname:
-                print(f"{id_:22} 沒有 Commons 照片，請在 OVERRIDES 指定", flush=True)
+                print(f"{id_:22} 找不到自由授權照片，請在 OVERRIDES 指定 Commons 檔名", flush=True)
                 failed.append(id_)
                 continue
             q = json.loads(get(
