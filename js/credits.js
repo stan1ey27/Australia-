@@ -1,0 +1,57 @@
+/* 照片來源（Wikimedia Commons），由 scripts/fetch_images.py 產生 */
+const PHOTO_CREDITS = {
+  "opera-house": {
+    "file": "Sydney_Opera_House_2026.jpg",
+    "author": "BAVhah",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_2026.jpg"
+  },
+  "harbour-bridge": {
+    "file": "Sydney_Harbour_Bridge-16_October_2025.jpg",
+    "author": "Servite et contribuere",
+    "license": "CC0",
+    "url": "https://commons.wikimedia.org/wiki/File:Sydney_Harbour_Bridge-16_October_2025.jpg"
+  },
+  "the-rocks": {
+    "file": "Sydney_(AU),_The_Rocks_--_2019_--_2133.jpg",
+    "author": "Dietmar Rabich",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Sydney_%28AU%29%2C_The_Rocks_--_2019_--_2133.jpg"
+  },
+  "botanic-garden": {
+    "file": "Gates_at_Royal_Botanic_Gardens_viewed_from_Art_Gallery_Road.jpg",
+    "author": "Bidgee",
+    "license": "CC BY-SA 3.0 au",
+    "url": "https://commons.wikimedia.org/wiki/File:Gates_at_Royal_Botanic_Gardens_viewed_from_Art_Gallery_Road.jpg"
+  },
+  "qvb": {
+    "file": "20230805 Queen Victoria Building.jpg",
+    "author": "Windmemories",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:20230805_Queen_Victoria_Building.jpg"
+  },
+  "sydney-tower": {
+    "file": "Sydney_Tower_(Centre_Point_Tower)_seen_from_Queen's_Square,_Sydney.jpg",
+    "author": "Chris Olszewski",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Sydney_Tower_(Centre_Point_Tower)_seen_from_Queen%27s_Square,_Sydney.jpg"
+  },
+  "darling-harbour": {
+    "file": "2019-04-10_Sydney_CBD_view_from_Pyrmont_at_sunset.jpg",
+    "author": "Maksym Kozlenko",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:2019-04-10_Sydney_CBD_view_from_Pyrmont_at_sunset.jpg"
+  },
+  "bondi-beach": {
+    "file": "Bondi_from_above.jpg",
+    "author": "Nick Ang",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Bondi_from_above.jpg"
+  },
+  "manly": {
+    "file": "2007-08-04_Manly,_New_South_Wales_b_(cropped).jpg",
+    "author": "File:2007-08-04 Manly, New South Wales.jpg: Maksym Kozlenko derivative work: Geo",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:2007-08-04_Manly,_New_South_Wales_b_(cropped).jpg"
+  }
+};
