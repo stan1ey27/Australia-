@@ -5,7 +5,8 @@ const params = new URLSearchParams(location.search);
 const focusId = params.get("focus");
 const focusA = focusId && getAttraction(focusId);
 let currentCity = (focusA && focusA.city) || (CITIES[params.get("city")] ? params.get("city") : "sydney");
-let currentDay = "all";
+let currentDay = params.get("day") || "all";
+if (params.get("day")) setTripMode(true);
 
 const DAY_COLORS = ["#4FA9E0", "#FF8C6B", "#3FBF8C", "#9B7BEA", "#F2A93B", "#2BB3C0", "#F06FA0", "#8C7A6B"];
 const dayColor = d => DAY_COLORS[(d - 1) % DAY_COLORS.length];
@@ -58,6 +59,18 @@ function visible(a) {
   return true;
 }
 
+const placeLayer = L.layerGroup().addTo(map);
+function drawPlaces() {
+  placeLayer.clearLayers();
+  for (const p of PLACES) {
+    if (p.city !== currentCity) continue;
+    L.marker([p.lat, p.lng], {
+      icon: L.divIcon({ className: "", html: `<div class="pin pin-place"><span>${p.icon}</span></div>`, iconSize: [34, 34], iconAnchor: [17, 43], popupAnchor: [0, -40] }),
+      title: p.name, zIndexOffset: -100,
+    }).addTo(placeLayer).bindPopup(`<div class="popup"><strong>${p.icon} ${p.name}</strong><p>${p.detail}</p>${p.approx ? `<div class="popup-meta">（只標大概區域）</div>` : ""}</div>`);
+  }
+}
+
 function drawMarkers() {
   Object.values(markers).forEach(m => m.remove());
   for (const a of ATTRACTIONS) {
@@ -97,7 +110,7 @@ function drawSidebar() {
       if (currentDay !== "all" && String(d.day) !== currentDay) continue;
       const stops = d.stops.map(getAttraction).filter(a => a && a.city === currentCity);
       if (!stops.length) continue;
-      html += `<h3 class="side-title"><span class="day-dot" style="background:${dayColor(d.day)}"></span>Day ${d.day}・${d.title}</h3><ol class="side-list">`;
+      html += `<h3 class="side-title"><span class="day-dot" style="background:${dayColor(d.day)}"></span>Day ${d.day}（${shortDate(d)}）${d.title}</h3><ol class="side-list">`;
       html += stops.map((a, i) => item(a, { label: `${d.day}-${i + 1}`, color: dayColor(d.day) })).join("");
       html += `</ol>`;
     }
@@ -140,7 +153,7 @@ function renderDayChips() {
   if (currentDay !== "all" && !days.some(d => String(d.day) === currentDay)) currentDay = "all";
   el.innerHTML = [`<button class="chip ${currentDay === "all" ? "active" : ""}" data-v="all">全部天數</button>`]
     .concat(days.map(d => `<button class="chip ${String(d.day) === currentDay ? "active" : ""}" data-v="${d.day}">
-      <span class="day-dot" style="background:${dayColor(d.day)}"></span>Day ${d.day}</button>`)).join("");
+      <span class="day-dot" style="background:${dayColor(d.day)}"></span>${shortDate(d)}</button>`)).join("");
 }
 
 function renderCityTabs() {
@@ -152,6 +165,7 @@ function refresh(refit = true) {
   renderCityTabs();
   renderDayChips();
   drawMarkers();
+  drawPlaces();
   drawRoutes();
   drawSidebar();
   if (refit) fitVisible();

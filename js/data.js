@@ -478,18 +478,125 @@ const ATTRACTIONS = [
 ];
 
 /*
- * 行程規劃（可以在網站上用「行程模式」開關切換顯示）
- * 每一天：day 第幾天、title 標題、stops 景點 id（照順序）
+ * 我們的行程（資料來源：Notion「UNSW TacEdge Workshop｜澳洲行程」）
+ * 每一天：
+ *   day 第幾天、date 日期、title 標題、city 所在城市、stay 住宿 id（見 PLACES）
+ *   events 固定行程（時間＋事件），stops 建議順路去的景點 id（照順序，會畫在地圖上）
+ * ⚠️ 網站是公開的：訂位代號、訂房連結、收據、完整地址不要放在這裡。
  */
 const ITINERARY = [
-  { day: 1, title: "雪梨・環形碼頭經典路線", stops: ["the-rocks", "harbour-bridge", "opera-house", "botanic-garden"] },
-  { day: 2, title: "雪梨・市中心＆達令港",   stops: ["qvb", "sydney-tower", "darling-harbour"] },
-  { day: 3, title: "雪梨・海港渡輪日",       stops: ["taronga-zoo", "manly"] },
-  { day: 4, title: "雪梨・東區海岸",         stops: ["bondi-beach", "watsons-bay"] },
-  { day: 5, title: "藍山一日遊",             stops: ["blue-mountains"] },
-  { day: 6, title: "坎培拉・國會三角區",     stops: ["parliament-house", "old-parliament-house", "national-gallery", "lake-burley-griffin"] },
-  { day: 7, title: "坎培拉・博物館與觀景台", stops: ["national-museum", "national-arboretum", "war-memorial", "mount-ainslie"] },
+  {
+    day: 1, date: "2026-11-11", title: "出發！台北 → 雪梨", city: "taipei", stay: null,
+    events: [
+      { time: "20:30", icon: "🧳", text: "抵達桃園機場第二航廈，辦理報到（建議起飛前 3 小時）" },
+      { time: "23:50", icon: "✈️", text: "華航 CI51 起飛（桃園 T2 → 雪梨），在飛機上過夜" },
+    ],
+    stops: [],
+  },
+  {
+    day: 2, date: "2026-11-12", title: "抵達雪梨 → 搭巴士到坎培拉", city: "canberra", stay: "stay-canberra",
+    events: [
+      { time: "12:15", icon: "🛬", text: "抵達雪梨機場國際線 T1，入境、領行李（記得申報食物）" },
+      { time: "15:25", icon: "🚌", text: "Murrays Coaches 巴士出發：國際線 T1 的 Bay 9（Bus & Coach Bays）", place: "syd-airport" },
+      { time: "約 18:45", icon: "📍", text: "抵達坎培拉 Jolimont Centre（實際時間以車票為準）", place: "jolimont" },
+      { time: "晚上", icon: "🏠", text: "入住坎培拉住宿（Canberra CBD，從 Jolimont 步行可到）" },
+    ],
+    stops: ["lake-burley-griffin"],
+    note: "時間有限，傍晚有力氣的話走到湖邊散步就好，早點休息準備隔天工作坊。",
+  },
+  {
+    day: 3, date: "2026-11-13", title: "TacEdge 工作坊", city: "canberra", stay: "stay-canberra",
+    events: [
+      { time: "上午", icon: "🎤", text: "專題演講", place: "unsw-canberra" },
+      { time: "下午", icon: "🛰️", text: "實作課程：SDR、SAR／光學衛星影像、AI 物件偵測、機器人搶旗賽", place: "unsw-canberra" },
+    ],
+    stops: [],
+    note: "地點：UNSW Canberra City Campus。記得帶筆電＋充電器、學生證。集合時間以行前說明為準。",
+  },
+  {
+    day: 4, date: "2026-11-14", title: "工作坊／校園參訪 → 回雪梨", city: "canberra", stay: "stay-sydney",
+    events: [
+      { time: "上午", icon: "🏫", text: "工作坊／校園參訪（以行前說明為準）" },
+      { time: "15:00", icon: "🚌", text: "Murrays Coaches 巴士出發：Jolimont Centre Bay 6／7（65 Northbourne Ave）", place: "jolimont" },
+      { time: "約 18:30", icon: "📍", text: "抵達雪梨（下車地點與時間以車票為準）" },
+      { time: "晚上", icon: "🏠", text: "入住雪梨住宿（Randwick）：從 Central 站搭輕軌 L2 到 Randwick 約 30 分鐘" },
+    ],
+    stops: ["parliament-house", "national-gallery", "war-memorial"],
+    note: "如果上午有空檔，國會三角區的景點都免費，搭巴士前可以挑一個去。",
+  },
+  {
+    day: 5, date: "2026-11-15", title: "雪梨自由行：海岸＋海港", city: "sydney", stay: "stay-sydney",
+    events: [
+      { time: "早上", icon: "🌊", text: "住宿在 Randwick，離 Coogee 很近：可以反向走 Coogee → Bondi 海岸步道（約 6 km）" },
+      { time: "中午", icon: "🚌", text: "從 Bondi 搭 333 號公車進市區" },
+      { time: "下午", icon: "🏛️", text: "環形碼頭：歌劇院、植物園、港灣大橋、岩石區" },
+      { time: "晚上", icon: "🌃", text: "岩石區吃晚餐、看海港夜景" },
+    ],
+    stops: ["bondi-beach", "opera-house", "botanic-garden", "harbour-bridge", "the-rocks"],
+  },
+  {
+    day: 6, date: "2026-11-16", title: "市區逛逛 → 回台灣", city: "sydney", stay: null,
+    events: [
+      { time: "上午", icon: "🧳", text: "退房（行李可以先問房東能否寄放）" },
+      { time: "白天", icon: "🛍️", text: "市中心：QVB、雪梨塔、達令港" },
+      { time: "19:00", icon: "🚕", text: "前往雪梨機場國際線 T1（從 Randwick 搭計程車約 20 分鐘）", place: "syd-airport" },
+      { time: "22:10", icon: "✈️", text: "華航 CI52 起飛（雪梨 T1 → 桃園）" },
+    ],
+    stops: ["qvb", "sydney-tower", "darling-harbour"],
+  },
 ];
+
+/* 行程相關地點（住宿只標大概區域，不放完整地址） */
+const PLACES = [
+  { id: "stay-canberra", city: "canberra", icon: "🏠", name: "坎培拉住宿", detail: "Charming 1BR Oasis（Canberra CBD）・11/12–11/14", lat: -35.2795, lng: 149.1305, approx: true },
+  { id: "stay-sydney",   city: "sydney",   icon: "🏠", name: "雪梨住宿",   detail: "Fantastic Garden Studio（Randwick）・11/14–11/16", lat: -33.9146, lng: 151.2413, approx: true },
+  { id: "unsw-canberra", city: "canberra", icon: "🎓", name: "UNSW Canberra City Campus", detail: "TacEdge 工作坊會場", lat: -35.2837, lng: 149.1326 },
+  { id: "jolimont",      city: "canberra", icon: "🚌", name: "Jolimont Centre", detail: "Murrays 巴士站・65 Northbourne Ave", lat: -35.2779, lng: 149.1291 },
+  { id: "syd-airport",   city: "sydney",   icon: "✈️", name: "雪梨機場國際線 T1", detail: "華航航班／Murrays 巴士 Bay 9", lat: -33.9361, lng: 151.1664 },
+];
+
+/* 旅程基本資訊（不含訂位代號） */
+const TRIP = {
+  name: "UNSW TacEdge Workshop｜澳洲行",
+  start: "2026-11-11",
+  end: "2026-11-16",
+  timezone: "澳洲東部 11 月是夏令時間（AEDT, UTC+11），比台灣快 3 小時",
+  flights: [
+    { label: "去程", text: "11/11（三）華航 CI51・23:50 桃園 T2 起飛 → 11/12 12:15 抵達雪梨 T1" },
+    { label: "回程", text: "11/16（一）華航 CI52・22:10 雪梨 T1 起飛" },
+  ],
+  buses: [
+    { label: "雪梨 → 坎培拉", text: "11/12（四）15:25・Murrays Coaches・雪梨機場 T1 Bay 9" },
+    { label: "坎培拉 → 雪梨", text: "11/14（六）15:00・Murrays Coaches・Jolimont Centre Bay 6／7" },
+  ],
+  stays: [
+    { label: "坎培拉", text: "11/12–11/14・Charming 1BR Oasis（Canberra CBD）" },
+    { label: "雪梨", text: "11/14–11/16・Fantastic Garden Studio（Randwick）" },
+  ],
+  todo: [
+    { text: "確認護照效期（6 個月以上）", done: true },
+    { text: "申請澳洲 ETA 電子簽證（Australian ETA App）", done: false },
+    { text: "訂來回機票", done: true },
+    { text: "訂雪梨 ↔ 坎培拉巴士", done: true },
+    { text: "訂坎培拉、雪梨住宿", done: true },
+    { text: "繳工作坊報名費", done: true },
+    { text: "保旅遊平安險＋不便險", done: false },
+    { text: "參加行前說明，確認參訪學校和日期", done: false },
+    { text: "換澳幣／準備可海外刷卡的信用卡", done: false },
+    { text: "網卡或 eSIM", done: false },
+    { text: "確認成果繳交的格式和期限", done: false },
+    { text: "兵役出境申請", done: true },
+    { text: "出發前兩天選機位", done: false },
+  ],
+  packing: [
+    "護照＋ETA 確認", "機票／住宿確認信（存手機＋截圖）", "筆電＋充電器（工作坊實作會用到）",
+    "澳洲轉接頭（I 型插座，230V）", "行動電源（放隨身行李）", "薄外套（坎培拉早晚偏涼）",
+    "防曬乳、太陽眼鏡（紫外線很強）", "個人藥品", "學生證",
+  ],
+  emergency: [
+    { label: "澳洲緊急電話（警察／消防／救護）", text: "000" },
+  ],
+};
 
 /* 雪梨 ↔ 坎培拉 城際交通 */
 const INTERCITY = [
