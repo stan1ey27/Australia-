@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>我們的行程・雪梨／坎培拉</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗓️</text></svg>">
+  <link rel="stylesheet" href="vendor/huninn/huninn.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="container narrow trip-page">
+    <section class="trip-hero">
+      <span class="hello">🎓 UNSW TacEdge Workshop</span>
+      <h1>我們的 <span class="hl">澳洲行</span></h1>
+      <p class="trip-dates">2026/11/11（三）– 11/16（一）・雪梨 → 坎培拉 → 雪梨</p>
+      <div class="countdown" id="countdown"></div>
+    </section>
+
+    <section class="quick-info" id="quickInfo"></section>
+
+    <h2 class="section-title">🗓️ 每日行程</h2>
+    <div class="timeline" id="timeline"></div>
+
+    <div class="two-col">
+      <section class="block">
+        <h2><span class="h-icon">✅</span>出發前待辦</h2>
+        <ul class="checklist" id="todo"></ul>
+      </section>
+      <section class="block">
+        <h2><span class="h-icon" style="background:var(--mint-soft)">🎒</span>行李清單</h2>
+        <ul class="checklist" id="packing"></ul>
+      </section>
+    </div>
+
+    <section class="block">
+      <h2><span class="h-icon" style="background:var(--coral-soft)">📌</span>小提醒＆緊急資訊</h2>
+      <ul class="transport-list" id="emergency"></ul>
+    </section>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/credits.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/trip.js"></script>
+</body>
+</html>

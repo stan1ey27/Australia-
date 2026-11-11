@@ -7,6 +7,7 @@
 |---|---|
 | `index.html` | 景點卡片列表，可以依城市、分類、已去／想去篩選，也可以搜尋 |
 | `map.html` | 景點地圖（Leaflet + OpenStreetMap），可以切換雪梨／坎培拉 |
+| `trip.html` | 我們的行程（11/11–11/16，資料來自 Notion）：每日時間表、航班巴士住宿、待辦與行李清單 |
 | `attraction.html?id=…` | 景點詳細頁：介紹、開放時間、門票、交通、附近景點、小地圖 |
 
 ## 功能
@@ -35,3 +36,8 @@ python3 -m http.server 8000
 ## 景點照片
 照片放在 `images/<景點id>.jpg`，來自 Wikimedia Commons（自由授權），作者與授權顯示在各景點頁。
 新增景點後執行 `python3 scripts/fetch_images.py` 就會自動下載缺少的照片；部署時 GitHub Actions 也會自動補抓。
+
+## 部署到 Vercel
+1. 到 https://vercel.com/new ，用 GitHub 登入
+2. Import `stan1ey27/Australia-`，設定都不用改（`vercel.json` 已經設好），按 **Deploy**
+3. 之後每次合併到 `main`，Vercel 會自動重新部署；GitHub Pages 也照常運作

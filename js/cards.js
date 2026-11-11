@@ -48,7 +48,7 @@ function render() {
       const items = d.stops.map(getAttraction).filter(a => a && list.includes(a));
       if (!items.length) continue;
       html += `<section class="day-group">
-        <h2 class="day-title"><span class="day-num">Day ${d.day}</span>${d.title}</h2>
+        <h2 class="day-title"><span class="day-num">Day ${d.day}・${shortDate(d)}</span>${d.title}</h2>
         <div class="grid">${items.map(cardHtml).join("")}</div></section>`;
     }
     const rest = list.filter(a => !dayOf(a.id));

@@ -32,6 +32,7 @@ function setStatus(id, status) {
 /* ---------- 行程模式 ---------- */
 function isTripMode() { return store.get("tripMode", false); }
 function setTripMode(on) { store.set("tripMode", !!on); }
+function shortDate(d) { const [, m, dd] = d.date.split("-"); return `${+m}/${+dd}`; }
 function dayOf(id) {
   for (const d of ITINERARY) if (d.stops.includes(id)) return d;
   return null;
@@ -95,6 +96,7 @@ function renderHeader(active) {
       <nav class="nav">
         <a href="index.html" class="${active === "list" ? "active" : ""}">景點</a>
         <a href="map.html" class="${active === "map" ? "active" : ""}">地圖</a>
+        <a href="trip.html" class="${active === "trip" ? "active" : ""}">行程</a>
         <label class="trip-toggle" title="依照行程天數顯示景點與路線">
           <input type="checkbox" id="tripToggle" ${isTripMode() ? "checked" : ""}>
           <span class="switch"></span><span class="trip-label"><span class="long">行程模式</span><span class="short">行程</span></span>
